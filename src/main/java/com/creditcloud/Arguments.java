@@ -1,7 +1,5 @@
 package com.creditcloud;
 
-import java.math.BigDecimal;
-
 /**
  *
  * @author vincentchen
@@ -11,16 +9,14 @@ public class Arguments {
 
     private String loanId;
 
+    private int totalDays;
+
     private String dueDate;
-    
-    private BigDecimal amountInterest;
 
-    public BigDecimal getAmountInterest() {
-        return amountInterest;
-    }
-
-    public void setAmountInterest(BigDecimal amountInterest) {
-        this.amountInterest = amountInterest;
+    public Arguments(String loanId, int totalDays, String dueDate) {
+        this.loanId = loanId;
+        this.totalDays = totalDays;
+        this.dueDate = dueDate;
     }
 
     public String getLoanId() {
@@ -29,6 +25,14 @@ public class Arguments {
 
     public void setLoanId(String loanId) {
         this.loanId = loanId;
+    }
+
+    public int getTotalDays() {
+        return totalDays;
+    }
+
+    public void setTotalDays(int totalDays) {
+        this.totalDays = totalDays;
     }
 
     public String getDueDate() {

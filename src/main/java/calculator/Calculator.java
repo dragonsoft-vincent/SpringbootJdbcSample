@@ -10,29 +10,35 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 
 /**
+ * calculate interest
  *
  * @author Recursion <recursion at creditcloud.com>
  */
 public class Calculator {
 
+    private final static int DAYS_PER_YEAR = 365;
+
     public Calculator() {
     }
 
-    public BigDecimal compute(int rate, int duration, int principalValue) {
+    /**
+     * @param rate           interest rate per year. eg:2400-->24% per year
+     * @param totalDays      total days
+     * @param principal      principal
+     * @return
+     */
+    public BigDecimal compute(int rate, int totalDays, BigDecimal principal) {
 
         BigDecimal rateScale = new BigDecimal(10000);
 
         MathContext mcPrivate = new MathContext(16, RoundingMode.HALF_EVEN);
 
-        BigDecimal principal = new BigDecimal(principalValue);
-        //now get rates
         BigDecimal rateYear = new BigDecimal(rate).divide(rateScale, mcPrivate);
-        BigDecimal rateDay = rateYear.divide(new BigDecimal(365), mcPrivate);
-        //dealing with different methods
-        BigDecimal interest, amortizedInterest, amortizedPrincipal, outstandingPrincipal;
-        interest = principal.multiply(rateDay).multiply(new BigDecimal(duration));
 
-        //ceilling the interest
+        BigDecimal rateDay = rateYear.divide(new BigDecimal(DAYS_PER_YEAR), mcPrivate);
+
+        BigDecimal interest = principal.multiply(rateDay).multiply(new BigDecimal(totalDays));
+
         return interest.setScale(2, RoundingMode.HALF_EVEN);
     }
 }
